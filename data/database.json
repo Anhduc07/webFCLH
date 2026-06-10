@@ -6,7 +6,7 @@
   },
   "home": {
     "latestMatch": "FC LH 6 - 2 12B Kim Thành",
-    "mvp": "Minh Khang",
+    "mvp": "Nguyen Van Manh",
     "nextMatch": "22:00 · Thursday",
     "possession": "68%",
     "goals": 42,
@@ -42,19 +42,24 @@
     }
   ],
 
-    "blog": [
-    {
-      "year": "2026",
-      "title": "Mùa chuyển nhượng sôi động",
-      "text": "Các cầu thủ xuất sắc của đội, và tiền đạo đá 6 năm không thể ghi bàn"
-    },
-    {
-      "year": "2026",
-      "title": "Comeback Home",
-      "text": "Chào đón con hàng Đình Hữu từ lò Đồng Gia về đội hình, hứa hẹn sẽ là sự bổ sung chất lượng cho hàng công."
-    }
-  ],
-
+"blog": [
+  {
+    "year": "2026",
+    "slug": "mua-chuyen-nhuong-soi-dong",
+    "title": "Mùa chuyển nhượng sôi động",
+    "text": "Các cầu thủ xuất sắc của đội, và tiền đạo đá 6 năm không thể ghi bàn",
+    "image": "/images/clothing/2018.png",
+    "content": "Đây là nội dung chi tiết của bài viết mùa chuyển nhượng."
+  },
+  {
+    "year": "2026",
+    "slug": "comeback-home",
+    "title": "Comeback Home",
+    "text": "Chào đón con hàng Đình Hữu từ lò Đồng Gia về đội hình, hứa hẹn sẽ là sự bổ sung chất lượng cho hàng công.",
+    "image": "/images/players/da.jpg",
+    "content": "Nguyễn Đình Hữu trở lại đội hình FC LH, hứa hẹn mang đến thêm lựa chọn chất lượng cho hàng công."
+  }
+],
 
   "honors": [
     {
