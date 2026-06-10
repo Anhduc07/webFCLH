@@ -1,0 +1,225 @@
+{
+  "club": {
+    "name": "FCLH Football Club",
+    "shortName": "FC LH",
+    "tagline": "More than a club spirit"
+  },
+  "home": {
+    "latestMatch": "FC LH 6 - 2 12B Kim Thành",
+    "mvp": "Minh Khang",
+    "nextMatch": "22:00 · Thursday",
+    "possession": "68%",
+    "goals": 42,
+    "unbeaten": 14,
+    "honors": 5
+  },
+  "intro": {
+    "title": "Hành Trình Khởi Đầu",
+    "text": "FC LH được thành lập vào năm 2018, tiền thân là tập hợp những nam sinh đầy nhiệt huyết của tập thể lớp 12C trường Trung học phổ thông Kim Thành. Khởi đầu từ những trận bóng phong trào học đường, tình yêu mãnh liệt với trái bóng tròn cùng sự gắn kết bè bạn bền chặt đã trở thành nền móng vững chắc, đưa đội bóng vượt qua giai đoạn học sinh để trở thành một tập thể phủi kiên cường, duy trì sinh hoạt bền bỉ suốt nhiều năm qua."
+  },
+  "achievements": [
+    {
+      "title": "2019-2020: Chung kết giải vô địch trường Trung học phổ thông Kim Thành",
+      "accent": "blue",
+      "text": "Hành trình năm ấy đã viết nên một chương kinh điển khi đánh bại lớp 11E tại trận bán kết bằng tinh thần quả cảm kiên cường. Dù phải dừng bước trước các đàn anh đầy đáng tiếc trong trận chung kết cuối cùng, ngôi vị Á quân vẫn là bệ phóng lịch sử khẳng định vị thế của đội."
+    },
+    {
+      "title": "2020-2021: Kỷ lục Vàng - Bản hùng ca bất bại",
+      "accent": "red",
+      "text": "Mốc son chói lọi và tự hào nhất trong hành trình phát triển của LH FC chính là kỳ tích bất bại suốt trọn vẹn năm 2021. Bằng đấu pháp kỷ luật thép kết hợp với sự thăng hoa rực rỡ của các nhân tố trên hàng công, đội bóng đã duy trì một mạch trận thần thánh, hoàn toàn không nếm mùi thất bại trước bất kỳ đối thủ nào trong khu vực."
+    }
+  ],
+  "history": [
+    {
+      "year": "2018",
+      "title": "Khởi đầu",
+      "text": "Những trận bóng học đường đầu tiên tạo nên bản sắc đoàn kết của đội."
+    },
+    {
+      "year": "2021",
+      "title": "Mùa bất bại",
+      "text": "Đội duy trì phong độ ổn định và tạo nên cột mốc đáng nhớ trong hành trình phát triển."
+    }
+  ],
+
+    "blog": [
+    {
+      "year": "2026",
+      "title": "Mùa chuyển nhượng sôi động",
+      "text": "Các cầu thủ xuất sắc của đội, và tiền đạo đá 6 năm không thể ghi bàn"
+    },
+    {
+      "year": "2026",
+      "title": "Comeback Home",
+      "text": "Chào đón con hàng Đình Hữu từ lò Đồng Gia về đội hình, hứa hẹn sẽ là sự bổ sung chất lượng cho hàng công."
+    }
+  ],
+
+
+  "honors": [
+    {
+      "id": "01",
+      "title": "Á quân trường THPT Kim Thành",
+      "years": "2019-2020"
+    },
+    {
+      "id": "02",
+      "title": "Mùa giải bất bại",
+      "years": "2020-2021"
+    },
+
+    {
+      "id": "03",
+      "title": "Mùa giải bất bại",
+      "years": "2022-2023"
+    }
+  ],
+  "players": [
+    {
+      "number": "27",
+      "name": "Nguyễn Tuấn Nghĩa",
+      "position": "Goalkeeper",
+      "stat": "Trận nào cũng thủng lưới",
+      "avatar": "/images/clothing/nghia.jpg"
+    },
+    {
+      "number": "29",
+      "name": "Hoàng Đức Anh",
+      "position": "Central Midfielder",
+      "avatar": "/images/players/da.jpg"
+    },
+    {
+      "number": "16",
+      "name": "Lê Trung Hiếu",
+      "position": "Striker",
+      "avatar": "/images/clothing/hiuhama.jpg"
+    },
+    {
+      "number": "07",
+      "name": "Nguyễn Văn Nam",
+      "position": "Wing Back",
+      "avatar": "/images/players/nam.jpg"
+    },
+    {
+      "number": "8",
+      "name": "Trần Tuấn Kiên",
+      "position": "Central Back",
+      "avatar": ""
+    },
+    {
+      "number": "91",
+      "name": "Lê Đức Thắng",
+      "position": "Central Midfielder",
+      "avatar": "/images/players/thắng lê.jpg"
+    },
+    {
+      "number": "25",
+      "name": "Phạm Trung Hiếu",
+      "position": "Centre Back",
+      "avatar": ""
+    },
+    {
+      "number": "26",
+      "name": "Đào Quang Hải",
+      "position": "Wing Back",
+      "avatar": ""
+    },
+    {
+      "number": "09",
+      "name": "Nguyễn Văn Tiến",
+      "position": "Striker",
+      "avatar": "/images/players/tien.jpg"
+    },
+    {
+      "number": "14",
+      "name": "Nguyễn Tiến Anh",
+      "position": "Wing Back",
+      "avatar": ""
+    },
+    {
+      "number": "10",
+      "name": "Nguyễn Đình Hữu",
+      "position": "Centre Forward",
+      "avatar": ""
+    }
+  ],
+  "kits": [
+    {
+      "type": "kit-2018",
+      "title": "Mẫu Áo 1 (2018)",
+      "image": "/images/clothing/2018.png"
+    },
+    {
+      "type": "kit-2",
+      "title": "Mẫu Áo 2",
+      "image": "/images/clothing/intermami.jpg"
+    },
+    {
+      "type": "kit-3",
+      "title": "Mẫu Áo 3",
+      "image": "/images/clothing/liversankhach.jpg"
+    },
+    {
+      "type": "kit-4",
+      "title": "Mẫu Áo 4",
+      "image": "/images/clothing/tbnw.jpg"
+    },
+    {
+      "type": "kit-5",
+      "title": "Mẫu Áo 5",
+      "image": ""
+    },
+    {
+      "type": "kit-6",
+      "title": "Mẫu Áo 6",
+      "image": ""
+    },
+    {
+      "type": "kit-2026",
+      "title": "Mẫu Áo 7 (2026)",
+      "image": ""
+    }
+  ],
+  "matches": [
+    {
+      "id": "match-1",
+      "opponent": "Đông Á FC",
+      "score": "FCLH 3-1 ",
+      "scorers": "",
+      "shots": 8,
+      "goals": 3
+    },
+    {
+      "id": "match-2",
+      "opponent": "Riverside",
+      "score": "FCLH 2-2 Riverside",
+      "scorers": "Minh Khang, Đức Huy",
+      "shots": 6,
+      "goals": 2
+    },
+    {
+      "id": "match-3",
+      "opponent": "United",
+      "score": "United 0-1 FCLH",
+      "scorers": "Gia Bảo",
+      "shots": 4,
+      "goals": 1
+    },
+    {
+      "id": "match-4",
+      "opponent": "City",
+      "score": "FCLH 4-0 City",
+      "scorers": "Hoàng Đức Anh x2",
+      "shots": 11,
+      "goals": 4
+    },
+    {
+      "id": "match-5",
+      "opponent": "Stars",
+      "score": "Stars 1-2 FCLH",
+      "scorers": "Minh Khang, Đức Huy",
+      "shots": 7,
+      "goals": 2
+    }
+  ]
+}

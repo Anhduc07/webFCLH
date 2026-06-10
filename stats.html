@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống kê bàn thắng | FCLH</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html"><span class="crest">F</span><span>FCLH</span></a>
+      <button class="nav-toggle" type="button" aria-label="Mở menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="nav-links" aria-label="Điều hướng chính">
+        <a href="index.html">Trang chủ</a><a href="history.html">Lịch sử</a><a href="honors.html">Danh hiệu</a><a href="players.html">Cầu thủ</a><a href="kits.html">Trang phục</a><a class="active" href="stats.html">Thống kê</a>
+      </nav>
+    </header>
+    <main>
+      <section class="page-hero stats-hero">
+        <div>
+          <p class="eyebrow">Match data</p>
+          <h1>Thống kê bàn thắng các trận</h1>
+          <p>Bảng theo dõi kết quả, cầu thủ ghi bàn và hiệu suất tấn công trong các trận gần đây.</p>
+        </div>
+      </section>
+      <section class="section stats-layout">
+        <div class="chart-panel">
+          <h2>Bàn thắng 5 trận gần nhất</h2>
+          <div class="bars" aria-label="Biểu đồ bàn thắng">
+            <span style="--value: 75%"><b>3</b><small>Đông Á</small></span>
+            <span style="--value: 50%"><b>2</b><small>Riverside</small></span>
+            <span style="--value: 25%"><b>1</b><small>United</small></span>
+            <span style="--value: 100%"><b>4</b><small>City</small></span>
+            <span style="--value: 50%"><b>2</b><small>Stars</small></span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Trận</th><th>Tỉ số</th><th>Người ghi bàn</th><th>Sút trúng đích</th></tr></thead>
+            <tbody>
+              <tr><td>FCLH - Đông Á FC</td><td>3-1</td><td>Đức Huy, Minh Khang, Tuấn Anh</td><td>8</td></tr>
+              <tr><td>FCLH - Riverside</td><td>2-2</td><td>Minh Khang, Đức Huy</td><td>6</td></tr>
+              <tr><td>United - FCLH</td><td>0-1</td><td>Gia Bảo</td><td>4</td></tr>
+              <tr><td>FCLH - City</td><td>4-0</td><td>Đức Huy x2, Tuấn Anh, Minh Quân</td><td>11</td></tr>
+              <tr><td>Stars - FCLH</td><td>1-2</td><td>Minh Khang, Đức Huy</td><td>7</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer"><span>FCLH Football Club</span><span>Dữ liệu giúp đội bóng tiến bộ.</span></footer>
+    <script src="script.js"></script>
+  </body>
+</html>
