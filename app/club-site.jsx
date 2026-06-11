@@ -116,7 +116,7 @@ export default function ClubSite({ initialSection = "home", initialData, initial
   if (!data) {
     return (
       <main className="loading-screen">
-        <span className="crest">F</span>
+        <span className="crest"><img src="/images/logo.jpg" alt="" /></span>
         <p>Đang tải dữ liệu CLB...</p>
       </main>
     );
@@ -126,7 +126,7 @@ export default function ClubSite({ initialSection = "home", initialData, initial
     <>
       <header className="site-header">
         <Link className="brand" href="/" aria-label="Trang chủ FCLH">
-          <span className="crest">F</span>
+          <span className="crest"><img src="/images/logo.jpg" alt="" /></span>
           <span>{data.club.shortName}</span>
         </Link>
         <button className="nav-toggle" type="button" aria-label="Mở menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>
@@ -520,7 +520,7 @@ function PitchLineup({ players, opponent }) {
   return (
     <div className="lineup-phone">
       <div className="lineup-appbar">
-        <span className="crest small-crest">F</span>
+        <span className="crest small-crest"><img src="/images/logo.jpg" alt="" /></span>
         <strong>Football Lover</strong>
         <span>‹</span>
         <span>›</span>
