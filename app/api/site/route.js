@@ -49,6 +49,20 @@ export async function POST(request) {
       shots,
       goals: homeGoals,
       status: "FT",
+      lineup: [],
+      substitutes: [],
+      absent: [],
+      stats: {
+        possession: "",
+        shots,
+        shotsOnTarget: 0,
+        corners: 0,
+        fouls: 0,
+        yellowCards: 0,
+        redCards: 0,
+      },
+      notes: "",
+      videoUrl: "",
     };
 
     data.matches = [match, ...data.matches].slice(0, 8);

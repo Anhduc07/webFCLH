@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-export default function ClubSite({ initialSection = "home", initialData }) {
+export default function ClubSite({ initialSection = "home", initialData, initialMatchId = "" }) {
   const [data, setData] = useState(initialData);
   const [menuOpen, setMenuOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
+  const [detailMessage, setDetailMessage] = useState("");
 
   const content = data.content;
   const maxGoals = useMemo(() => {
@@ -45,6 +46,71 @@ export default function ClubSite({ initialSection = "home", initialData }) {
     event.currentTarget.reset();
     setData(result.data);
     setMessage(content.runtime.saveSuccess);
+  }
+
+  async function updateMatchDetails(event, matchId) {
+    event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    setSaving(true);
+    setDetailMessage("");
+
+    const toList = (value) => String(value || "")
+      .split(/\r?\n|,/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    const videoFile = form.get("videoFile");
+    let videoUrl = String(form.get("videoUrl") || "").trim();
+
+    if (videoFile?.size) {
+      const uploadForm = new FormData();
+      uploadForm.append("video", videoFile);
+      const uploadResponse = await fetch(`/api/matches/${encodeURIComponent(matchId)}/video`, {
+        method: "POST",
+        body: uploadForm,
+      });
+      const uploadResult = await uploadResponse.json();
+
+      if (!uploadResponse.ok) {
+        setSaving(false);
+        setDetailMessage(uploadResult.error || "Không upload được video.");
+        return;
+      }
+
+      videoUrl = uploadResult.url;
+    }
+
+    const response = await fetch(`/api/matches/${encodeURIComponent(matchId)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        lineup: toList(form.get("lineup")),
+        substitutes: toList(form.get("substitutes")),
+        absent: toList(form.get("absent")),
+        notes: String(form.get("notes") || "").trim(),
+        videoUrl,
+        stats: {
+          possession: String(form.get("possession") || "").trim(),
+          shots: Number(form.get("shots") || 0),
+          shotsOnTarget: Number(form.get("shotsOnTarget") || 0),
+          corners: Number(form.get("corners") || 0),
+          fouls: Number(form.get("fouls") || 0),
+          yellowCards: Number(form.get("yellowCards") || 0),
+          redCards: Number(form.get("redCards") || 0),
+        },
+      }),
+    });
+
+    const result = await response.json();
+    setSaving(false);
+
+    if (!response.ok) {
+      setDetailMessage(result.error || content.runtime.saveError);
+      return;
+    }
+
+    setData(result.data);
+    setDetailMessage("Đã cập nhật chi tiết trận đấu.");
   }
 
   if (!data) {
@@ -86,9 +152,10 @@ export default function ClubSite({ initialSection = "home", initialData }) {
         {initialSection === "kits" && <Kits items={data.kits} content={content.kits} />}
         {initialSection === "stats" && <Stats data={data} content={content.stats} maxGoals={maxGoals} onSubmit={addMatch} saving={saving} message={message} />}
         {initialSection === "matches" && <Matches matches={data.matches} />}
+        {initialSection === "match-detail" && <MatchDetail match={data.matches.find((match) => match.id === initialMatchId)} />}
         {initialSection === "community" && <Community data={data} />}
         {initialSection === "partners" && <Partners partners={data.partners} />}
-        {initialSection === "admin" && <Admin data={data} content={content.stats} onSubmit={addMatch} saving={saving} message={message} />}
+        {initialSection === "admin" && <Admin data={data} content={content.stats} onSubmit={addMatch} onUpdateDetails={updateMatchDetails} saving={saving} message={message} detailMessage={detailMessage} />}
         {initialSection === "blog" && <BlogIndex posts={data.blog} />}
       </main>
 
@@ -357,7 +424,7 @@ function Matches({ matches }) {
   return (
     <section className="section match-center">
       {matches.map((match) => (
-        <article key={match.id} className={`match-card ${match.status === "Next" ? "next" : ""}`}>
+        <Link key={match.id} href={`/matches/${match.id}`} className={`match-card ${match.status === "Next" ? "next" : ""}`}>
           <div>
             <span>{match.competition}</span>
             <h2>{match.opponent}</h2>
@@ -365,10 +432,197 @@ function Matches({ matches }) {
           </div>
           <strong>{match.score}</strong>
           <p>{match.scorers}</p>
-        </article>
+        </Link>
       ))}
     </section>
   );
+}
+
+function MatchDetail({ match }) {
+  if (!match) {
+    return (
+      <section className="section">
+        <div className="info-panel">
+          <h1>Không tìm thấy trận đấu</h1>
+          <p>Trận đấu này chưa có trong dữ liệu của FC LH.</p>
+        </div>
+      </section>
+    );
+  }
+
+  const stats = match.stats || {};
+  const lineup = match.lineup?.length ? match.lineup : ["Đang cập nhật"];
+  const substitutes = match.substitutes?.length ? match.substitutes : ["Đang cập nhật"];
+  const absent = match.absent?.length ? match.absent : ["Không có ghi nhận"];
+  const statItems = [
+    ["Kiểm soát", stats.possession || "Đang cập nhật"],
+    ["Dứt điểm", stats.shots ?? match.shots ?? 0],
+    ["Trúng đích", stats.shotsOnTarget ?? 0],
+    ["Phạt góc", stats.corners ?? 0],
+    ["Phạm lỗi", stats.fouls ?? 0],
+    ["Thẻ vàng", stats.yellowCards ?? 0],
+    ["Thẻ đỏ", stats.redCards ?? 0],
+  ];
+
+  return (
+    <article className="match-detail-page">
+      <section className={`match-detail-hero ${match.status === "Next" ? "next" : ""}`}>
+        <div>
+          <p className="eyebrow">{match.competition} · {match.date}</p>
+          <h1>FC LH vs {match.opponent}</h1>
+          <p>{match.venue} · Trạng thái: {match.status}</p>
+        </div>
+        <strong>{match.score}</strong>
+      </section>
+
+      <section className="section match-detail-layout">
+        <div className="match-detail-main">
+          <section className="detail-panel">
+            <span>Đội hình đăng ký</span>
+            <PitchLineup players={match.lineup || []} opponent={match.opponent} />
+            <div className="lineup-grid lineup-support-grid">
+              <RosterList title="Ra sân" items={lineup} />
+              <RosterList title="Dự bị" items={substitutes} />
+              <RosterList title="Vắng mặt" items={absent} />
+            </div>
+          </section>
+
+          <section className="detail-panel">
+            <span>Thông số trận đấu</span>
+            <div className="match-stat-grid">
+              {statItems.map(([label, value]) => (
+                <article key={label}>
+                  <strong>{value}</strong>
+                  <p>{label}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section className="detail-panel">
+            <span>Ghi chú trận đấu</span>
+            <p>{match.notes || match.scorers || "Đang cập nhật diễn biến trận đấu."}</p>
+          </section>
+        </div>
+
+        <aside className="detail-panel match-video-panel">
+          <span>Video sau trận</span>
+          {match.videoUrl ? <MatchVideo url={match.videoUrl} title={`Video ${match.opponent}`} /> : <p>Video trận này sẽ được cập nhật sau khi trận đấu kết thúc.</p>}
+        </aside>
+      </section>
+    </article>
+  );
+}
+
+function PitchLineup({ players, opponent }) {
+  const positionedPlayers = getPitchPlayers(players);
+
+  return (
+    <div className="lineup-phone">
+      <div className="lineup-appbar">
+        <span className="crest small-crest">F</span>
+        <strong>Football Lover</strong>
+        <span>‹</span>
+        <span>›</span>
+        <span>⋮</span>
+      </div>
+      <div className="lineup-titlebar">
+        <span>‹</span>
+        <strong>{opponent}</strong>
+        <span>⚙</span>
+      </div>
+      <div className="pitch-board" aria-label="Sơ đồ đội hình ra sân">
+        <div className="goal top-goal"></div>
+        <div className="goal bottom-goal"></div>
+        <div className="center-circle"></div>
+        <div className="center-line"></div>
+        {positionedPlayers.length ? positionedPlayers.map((player) => (
+          <div key={`${player.name}-${player.x}-${player.y}`} className={`pitch-player ${player.missing ? "missing" : ""}`} style={{ "--x": `${player.x}%`, "--y": `${player.y}%` }}>
+            <span className={player.role === "gk" ? "player-shirt goalkeeper-shirt" : "player-shirt"}>
+              <i>{player.initials}</i>
+            </span>
+            <strong>{player.name}</strong>
+            <small>{player.number}</small>
+          </div>
+        )) : (
+          <div className="pitch-empty">Đang cập nhật đội hình</div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function getPitchPlayers(players) {
+  const slots = [
+    { role: "fw", x: 50, y: 22, label: "ST" },
+    { role: "mid", x: 23, y: 43, label: "LM" },
+    { role: "mid", x: 50, y: 43, label: "CM" },
+    { role: "mid", x: 77, y: 43, label: "RM" },
+    { role: "def", x: 34, y: 64, label: "DF" },
+    { role: "def", x: 66, y: 64, label: "DF" },
+    { role: "gk", x: 50, y: 83, label: "GK" },
+  ];
+  const parsedPlayers = (players || []).slice(0, 7).map(parseLineupPlayer);
+  const orderedPlayers = [
+    parsedPlayers[1],
+    parsedPlayers[2],
+    parsedPlayers[3],
+    parsedPlayers[4],
+    parsedPlayers[5],
+    parsedPlayers[6],
+    parsedPlayers[0],
+  ];
+
+  return slots.map((slot, index) => {
+    const player = orderedPlayers[index] || createEmptyLineupPlayer(index);
+    return {
+      ...player,
+      ...slot,
+      number: player.missing ? slot.label : player.number,
+    };
+  });
+}
+
+function parseLineupPlayer(value, index) {
+  const raw = String(value || "").trim();
+  const numberMatch = raw.match(/(?:#|\b)(\d{1,2})\b/);
+  const name = raw.replace(/#?\d{1,2}\b/g, "").replace(/[-–|]/g, " ").trim() || raw || `Player ${index + 1}`;
+  const initials = name.split(/\s+/).map((part) => part[0]).join("").slice(0, 2).toUpperCase();
+
+  return {
+    name,
+    number: numberMatch?.[1] || index + 1,
+    initials,
+  };
+}
+
+function createEmptyLineupPlayer(index) {
+  return {
+    name: "Chưa chọn",
+    number: index + 1,
+    initials: "+",
+    missing: true,
+  };
+}
+
+function RosterList({ title, items }) {
+  return (
+    <div className="roster-list">
+      <h2>{title}</h2>
+      <ul>
+        {items.map((item) => <li key={item}>{item}</li>)}
+      </ul>
+    </div>
+  );
+}
+
+function MatchVideo({ url, title }) {
+  const youtubeMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]+)/);
+  if (youtubeMatch) {
+    return <iframe src={`https://www.youtube.com/embed/${youtubeMatch[1]}`} title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>;
+  }
+
+  return <video src={url} controls playsInline preload="metadata" />;
 }
 
 function Community({ data }) {
@@ -400,7 +654,7 @@ function Partners({ partners }) {
   );
 }
 
-function Admin({ data, content, onSubmit, saving, message }) {
+function Admin({ data, content, onSubmit, onUpdateDetails, saving, message, detailMessage }) {
   return (
     <section className="section admin-layout">
       <div className="admin-summary">
@@ -421,7 +675,45 @@ function Admin({ data, content, onSubmit, saving, message }) {
           </tbody>
         </table>
       </div>
+      <div className="admin-match-details">
+        <h2>Cập nhật chi tiết từng trận</h2>
+        {data.matches.map((match) => (
+          <MatchDetailsForm key={match.id} match={match} onSubmit={onUpdateDetails} saving={saving} message={detailMessage} />
+        ))}
+      </div>
     </section>
+  );
+}
+
+function MatchDetailsForm({ match, onSubmit, saving, message }) {
+  const stats = match.stats || {};
+  return (
+    <form className="match-form match-detail-form" onSubmit={(event) => onSubmit(event, match.id)}>
+      <div className="match-detail-form-heading">
+        <div>
+          <span>{match.date} · {match.competition}</span>
+          <h3>{match.opponent}</h3>
+        </div>
+        <Link href={`/matches/${match.id}`}>Xem</Link>
+      </div>
+      <label>Đội hình ra sân<input name="lineup" defaultValue={(match.lineup || []).join(", ")} placeholder="Nhập đủ 7 người, ví dụ: Nghĩa #1, Mạnh #4..." /></label>
+      <label>Dự bị<input name="substitutes" defaultValue={(match.substitutes || []).join(", ")} placeholder="Ví dụ: Nam, Tiến..." /></label>
+      <label>Vắng mặt<input name="absent" defaultValue={(match.absent || []).join(", ")} placeholder="Chấn thương, bận việc..." /></label>
+      <div className="form-grid">
+        <label>Kiểm soát<input name="possession" defaultValue={stats.possession || ""} placeholder="68%" /></label>
+        <label>Dứt điểm<input name="shots" type="number" min="0" defaultValue={stats.shots ?? match.shots ?? 0} /></label>
+        <label>Trúng đích<input name="shotsOnTarget" type="number" min="0" defaultValue={stats.shotsOnTarget ?? 0} /></label>
+        <label>Phạt góc<input name="corners" type="number" min="0" defaultValue={stats.corners ?? 0} /></label>
+        <label>Phạm lỗi<input name="fouls" type="number" min="0" defaultValue={stats.fouls ?? 0} /></label>
+        <label>Thẻ vàng<input name="yellowCards" type="number" min="0" defaultValue={stats.yellowCards ?? 0} /></label>
+        <label>Thẻ đỏ<input name="redCards" type="number" min="0" defaultValue={stats.redCards ?? 0} /></label>
+      </div>
+      <label>Upload video ngắn<input name="videoFile" type="file" accept="video/*" /></label>
+      <label>Hoặc link video ngắn sau trận<input name="videoUrl" defaultValue={match.videoUrl || ""} placeholder="YouTube Shorts hoặc file .mp4 trong public" /></label>
+      <label>Ghi chú<input name="notes" defaultValue={match.notes || ""} placeholder="Diễn biến chính, MVP, nhận xét..." /></label>
+      <button className="button primary dark" disabled={saving}>{saving ? "Đang lưu..." : "Lưu chi tiết trận"}</button>
+      {message && <p className="form-message">{message}</p>}
+    </form>
   );
 }
 

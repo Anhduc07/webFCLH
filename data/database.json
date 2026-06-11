@@ -232,7 +232,34 @@
       "scorers": "Mạnh x2, Tiến, Đức Anh, Nam, Hiếu",
       "shots": 14,
       "goals": 6,
-      "status": "FT"
+      "status": "FT",
+      "lineup": [
+        "Nghia #1",
+        "Manh #4",
+        "Duc Anh #29",
+        "Nam #7",
+        "Tien #9",
+        "Huu #10",
+        "Hieu #16"
+      ],
+      "substitutes": [
+        "Thang #91",
+        "Trung Hieu #25"
+      ],
+      "absent": [
+        "Chua co ghi nhan"
+      ],
+      "stats": {
+        "possession": "68%",
+        "shots": 14,
+        "shotsOnTarget": 9,
+        "corners": 6,
+        "fouls": 5,
+        "yellowCards": 1,
+        "redCards": 0
+      },
+      "notes": "FC LH nhap cuoc chu dong, pressing cao va tan dung tot cac pha chuyen trang thai de khep lai tran dau voi chien thang dam.",
+      "videoUrl": ""
     },
     {
       "id": "match-2",
@@ -244,7 +271,33 @@
       "scorers": "Đức Anh, Nam",
       "shots": 8,
       "goals": 2,
-      "status": "FT"
+      "status": "FT",
+      "lineup": [
+        "Nghia #1",
+        "Manh #4",
+        "Duc Anh #29",
+        "Nam #7",
+        "Tien #9",
+        "Huu #10",
+        "Thang #91"
+      ],
+      "substitutes": [
+        "Trung Hieu #25"
+      ],
+      "absent": [
+        "Hieu #16"
+      ],
+      "stats": {
+        "possession": "54%",
+        "shots": 8,
+        "shotsOnTarget": 4,
+        "corners": 3,
+        "fouls": 7,
+        "yellowCards": 0,
+        "redCards": 0
+      },
+      "notes": "Tran dau giang co, FC LH giu nhip tot o tuyen giua va co hai ban tu cac pha phoi hop bien.",
+      "videoUrl": ""
     },
     {
       "id": "match-3",
@@ -256,7 +309,21 @@
       "scorers": "Chưa diễn ra",
       "shots": 0,
       "goals": 0,
-      "status": "Next"
+      "status": "Next",
+      "lineup": [],
+      "substitutes": [],
+      "absent": [],
+      "stats": {
+        "possession": "",
+        "shots": 0,
+        "shotsOnTarget": 0,
+        "corners": 0,
+        "fouls": 0,
+        "yellowCards": 0,
+        "redCards": 0
+      },
+      "notes": "",
+      "videoUrl": ""
     }
   ],
   "community": {
