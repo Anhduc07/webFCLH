@@ -1,86 +1,98 @@
 export const siteContent = {
   navigation: [
     { id: "home", label: "Trang chủ", href: "/" },
-    { id: "blog", label: "Blog", href: "/blog" },
-    { id: "history", label: "Lịch sử", href: "/history" },
+    { id: "blog", label: "Tin tức", href: "/blog" },
+    { id: "matches", label: "Lịch đấu", href: "/matches" },
+    { id: "players", label: "Đội hình", href: "/players" },
+    { id: "kits", label: "Shop", href: "/kits" },
     { id: "honors", label: "Danh hiệu", href: "/honors" },
-    { id: "players", label: "Cầu thủ", href: "/players" },
-    { id: "kits", label: "Trang phục", href: "/kits" },
+    { id: "community", label: "Fan zone", href: "/community" },
+    { id: "partners", label: "Đối tác", href: "/partners" },
     { id: "stats", label: "Thống kê", href: "/stats" },
+    { id: "admin", label: "Admin", href: "/admin" }
   ],
 
   pageHeroes: {
+    blog: {
+      eyebrow: "FC LH Stories",
+      title: "Tin tức mới nhất",
+      description: "Cập nhật matchday, chuyển nhượng, hậu trường và các câu chuyện của đội bóng."
+    },
+    matches: {
+      eyebrow: "Match center",
+      title: "Lịch thi đấu và kết quả",
+      description: "Theo dõi trận gần nhất, trận sắp tới, tỷ số, sân đấu và người ghi bàn."
+    },
     honors: {
       eyebrow: "Trophy room",
       title: "Danh hiệu đạt được",
-      description: "Những cột mốc vô địch và giải thưởng cá nhân nổi bật trong hành trình phát triển của CLB.",
+      description: "Những cột mốc vô địch, giải thưởng và kỷ lục đáng nhớ trong hành trình FC LH."
     },
     players: {
       eyebrow: "First team",
-      title: "Danh sách cầu thủ",
-      description: "Đội hình chính thức của đội bóng với số áo, vị trí và ảnh đại diện.",
+      title: "Đội hình chính thức",
+      description: "Hồ sơ cầu thủ với số áo, vị trí, vai trò và thống kê nổi bật."
     },
     stats: {
       eyebrow: "Match data",
-      title: "Thống kê bàn thắng các trận",
-      description: "Bảng theo dõi kết quả, cầu thủ ghi bàn và hiệu suất tấn công trong các trận gần đây.",
+      title: "Thống kê đội bóng",
+      description: "Bảng theo dõi bàn thắng, kiến tạo, hiệu suất tấn công và dữ liệu trận đấu."
     },
+    community: {
+      eyebrow: "Fan zone",
+      title: "Cộng đồng FC LH",
+      description: "Nơi người hâm mộ theo dõi hoạt động, bình chọn và kết nối với đội bóng."
+    },
+    partners: {
+      eyebrow: "Partners",
+      title: "Đối tác đồng hành",
+      description: "Các đơn vị hỗ trợ trang phục, truyền thông và hoạt động thi đấu của FC LH."
+    },
+    admin: {
+      eyebrow: "Club operations",
+      title: "Bảng quản trị nội dung",
+      description: "Khu vực kiểm tra dữ liệu nhanh và cập nhật kết quả trận đấu cho website."
+    }
   },
 
   home: {
-    primaryAction: "Đội hình",
-    secondaryAction: "Khám phá CLB",
+    primaryAction: "Xem đội hình",
+    secondaryAction: "Match center",
     matchLabels: {
       latest: "Trận mới nhất",
       mvp: "Cầu thủ hay nhất",
-      next: "Trận tiếp theo",
+      next: "Trận tiếp theo"
     },
-    hubEyebrow: "Club hub",
-    hubTitle: "Đi vào từng lát cắt của đội bóng",
+    hubEyebrow: "Official club hub",
+    hubTitle: "Một website CLB đúng nghĩa: tin tức, lịch đấu, đội hình, shop và fan zone",
     featureCards: {
-      history: "Lịch sử hình thành",
-      honors: "Danh hiệu đạt được",
-      kits: "Trang phục qua mùa",
+      blog: "Tin tức và hậu trường",
+      matches: "Lịch đấu và kết quả",
+      players: "Đội hình First Team",
+      kits: "Shop áo đấu",
+      community: "Fan zone",
+      partners: "Đối tác"
     },
     styleEyebrow: "Phong cách thi đấu",
     styleTitle: "Kiểm soát bóng, pressing cao, chuyển trạng thái nhanh",
+    styleText: "FC LH ưu tiên nhịp chuyền chắc, đoạt bóng sớm và khai thác tốc độ ở hai biên.",
     statLabels: {
       possession: "Kiểm soát bóng TB",
       goals: "Bàn từ dữ liệu",
       unbeaten: "Trận bất bại",
-      honors: "Danh hiệu",
-    },
-  },
-
-  blog: {
-    title: "Blog của CLB",
-    description: "Cập nhật những tin tức mới nhất về đội bóng.",
+      honors: "Danh hiệu"
+    }
   },
 
   history: {
-    introTitle: "Hành Trình Khởi Đầu",
-    introText:
-      "LH FC được thành lập vào năm 2018, tiền thân là tập hợp những nam sinh đầy nhiệt huyết của tập thể lớp 12C trường Trung học phổ thông Kim Thành. Khởi đầu từ những trận bóng phong trào học đường, tình yêu mãnh liệt với trái bóng tròn cùng sự gắn kết bè bạn bền chặt đã trở thành nền móng vững chắc, đưa đội bóng vượt qua giai đoạn học sinh để trở thành một tập thể phủi kiên cường, duy trì sinh hoạt bền bỉ suốt nhiều năm qua.",
-    achievementTitle: "Thành tích nổi bật",
-    achievements: [
-      {
-        title: "2019-2020: Chung kết giải vô địch trường Trung học phổ thông Kim Thành",
-        accent: "blue",
-        text:
-          "Hành trình năm ấy đã viết nên một chương kinh điển khi đánh bại lớp 11E tại trận bán kết bằng tinh thần quả cảm kiên cường. Dù phải dừng bước trước các đàn anh đầy đáng tiếc trong trận chung kết cuối cùng, ngôi vị Á quân vẫn là bệ phóng lịch sử khẳng định vị thế của đội.",
-      },
-      {
-        title: "2020-2021: Kỷ lục Vàng - Bản hùng ca bất bại",
-        accent: "red",
-        text:
-          "Mốc son chói lọi và tự hào nhất trong hành trình phát triển của LH FC chính là kỳ tích bất bại suốt trọn vẹn năm 2021. Bằng đấu pháp kỷ luật thép kết hợp với sự thăng hoa rực rỡ của các nhân tố trên hàng công, đội bóng đã duy trì một mạch trận thần thánh, hoàn toàn không nếm mùi thất bại trước bất kỳ đối thủ nào trong khu vực.",
-      },
-    ],
+    introTitle: "Hành trình khởi đầu",
+    achievementTitle: "Thành tích nổi bật"
   },
 
   kits: {
-    title: "Bộ Sưu Tập Áo Đấu",
-    note: "Mẫu áo của đội bóng qua các thời kỳ.",
+    title: "FC LH Store",
+    note: "Bộ sưu tập áo đấu, áo training và các mẫu retro của đội bóng.",
+    tabs: ["Home", "Away", "Training", "Retro"]
   },
 
   stats: {
@@ -89,21 +101,21 @@ export const siteContent = {
     opponent: "Đối thủ",
     homeGoals: "Bàn FC LH",
     awayGoals: "Bàn đối thủ",
-    shots: "Cú sút trúng đích",
+    shots: "Sút trúng đích",
     scorers: "Người ghi bàn",
-    submit: "Lưu vào databas",
+    submit: "Lưu vào database",
     saving: "Đang lưu...",
     table: {
       match: "Trận",
       scorers: "Người ghi bàn",
-      shots: "Sút trúng đích",
-    },
+      shots: "Sút trúng đích"
+    }
   },
 
   runtime: {
     loading: "Đang tải dữ liệu CLB từ database...",
     saveError: "Không lưu được trận đấu.",
     saveSuccess: "Đã lưu trận mới vào database.",
-    footer: "",
-  },
+    footer: "Official digital home of FC LH"
+  }
 };

@@ -34,17 +34,21 @@ export async function POST(request) {
     const shots = Number(body.shots);
 
     if (!body.opponent || Number.isNaN(homeGoals) || Number.isNaN(awayGoals) || Number.isNaN(shots)) {
-      return NextResponse.json({ error: "Dá»¯ liá»‡u tráº­n Ä‘áº¥u chÆ°a há»£p lá»‡." }, { status: 400 });
+      return NextResponse.json({ error: "Dữ liệu trận đấu chưa hợp lệ." }, { status: 400 });
     }
 
     const opponent = String(body.opponent).trim();
     const match = {
       id: `match-${Date.now()}`,
       opponent,
-      score: `FCLH ${homeGoals}-${awayGoals} ${opponent}`,
-      scorers: String(body.scorers || "Äang cáº­p nháº­t").trim(),
+      date: new Date().toISOString().slice(0, 10),
+      competition: "Friendly",
+      venue: "Kim Thanh Arena",
+      score: `FC LH ${homeGoals}-${awayGoals} ${opponent}`,
+      scorers: String(body.scorers || "Đang cập nhật").trim(),
       shots,
       goals: homeGoals,
+      status: "FT",
     };
 
     data.matches = [match, ...data.matches].slice(0, 8);
@@ -55,6 +59,6 @@ export async function POST(request) {
     return NextResponse.json({ ok: true, data: await readSiteData() }, { status: 201 });
   }
 
-  return NextResponse.json({ error: "Loáº¡i dá»¯ liá»‡u chÆ°a Ä‘Æ°á»£c há»— trá»£." }, { status: 400 });
+  return NextResponse.json({ error: "Loại dữ liệu chưa được hỗ trợ." }, { status: 400 });
 }
 

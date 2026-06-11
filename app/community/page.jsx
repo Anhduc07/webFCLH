@@ -1,7 +1,7 @@
 import ClubSite from "../club-site";
 import { readSiteData } from "../../lib/store";
 
-export default async function BlogPage() {
+export default async function CommunityPage() {
   const data = await readSiteData();
-  return <ClubSite initialSection="blog" initialData={data} />;
+  return <ClubSite initialSection="community" initialData={data} />;
 }
