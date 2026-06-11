@@ -3,7 +3,7 @@ export const siteContent = {
     { id: "home", label: "Trang chủ", href: "/" },
     { id: "blog", label: "Tin tức", href: "/blog" },
     { id: "matches", label: "Lịch đấu", href: "/matches" },
-    { id: "players", label: "Đội hình", href: "/players" },
+    { id: "players", label: "Thành viên", href: "/players" },
     { id: "kits", label: "Shop", href: "/kits" },
     { id: "honors", label: "Danh hiệu", href: "/honors" },
     { id: "community", label: "Fan zone", href: "/community" },
@@ -103,7 +103,7 @@ export const siteContent = {
     awayGoals: "Bàn đối thủ",
     shots: "Sút trúng đích",
     scorers: "Người ghi bàn",
-    submit: "Lưu vào database",
+    submit: "Save",
     saving: "Đang lưu...",
     table: {
       match: "Trận",
@@ -113,9 +113,9 @@ export const siteContent = {
   },
 
   runtime: {
-    loading: "Đang tải dữ liệu CLB từ database...",
+    loading: "Đang tải dữ liệu CLB...",
     saveError: "Không lưu được trận đấu.",
     saveSuccess: "Đã lưu trận mới vào database.",
-    footer: "Official digital home of FC LH"
+    footer: "Offical LH Footbal Club"
   }
 };

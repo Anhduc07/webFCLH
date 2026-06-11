@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 export default function ClubSite({ initialSection = "home", initialData, initialMatchId = "" }) {
   const [data, setData] = useState(initialData);
@@ -335,7 +335,20 @@ function Honors({ items }) {
   return (
     <section className="section honors-grid">
       {items.map((item) => (
-        <article key={item.id}><span className="trophy">{item.id}</span><h2>{item.title}</h2><p>{item.years}</p></article>
+        <article key={item.id} className="honor-card">
+          <div className="trophy-visual" aria-hidden="true">
+            <span className="trophy-handle left"></span>
+            <span className="trophy-cup"></span>
+            <span className="trophy-handle right"></span>
+            <span className="trophy-stem"></span>
+            <span className="trophy-base"></span>
+          </div>
+          <div className="honor-copy">
+            <span className="trophy">{item.id}</span>
+            <h2>{item.title}</h2>
+            <p>{item.years}</p>
+          </div>
+        </article>
       ))}
     </section>
   );
@@ -421,6 +434,53 @@ function Stats({ data, content, maxGoals, onSubmit, saving, message }) {
 }
 
 function Matches({ matches }) {
+  const nextMatch = matches.find((match) => match.status === "Next") || matches[0];
+  const playedMatches = matches.filter((match) => match.id !== nextMatch?.id);
+
+  return (
+    <section className="section match-center">
+      {nextMatch && (
+        <section className="next-match-stage">
+          <div className="match-stage-heading">
+            <span>Next match</span>
+            <MatchCountdown match={nextMatch} />
+          </div>
+          <Link href={`/matches/${nextMatch.id}`} className="featured-match-card">
+            <span className="match-ribbon">Next match</span>
+            <TeamBlock name="FC LH" logo="/images/logo.jpg" />
+            <div className="match-card-core">
+              <span>{nextMatch.competition}</span>
+              <strong>{nextMatch.score || "20:30"}</strong>
+              <p>{nextMatch.date} · {nextMatch.venue}</p>
+            </div>
+            <TeamBlock name={nextMatch.opponent} />
+          </Link>
+        </section>
+      )}
+
+      <section className="past-match-stage">
+        <div className="section-heading compact-heading">
+          <p className="eyebrow">Match archive</p>
+          <h2>Những trận đã qua</h2>
+        </div>
+        <div className="match-tile-grid">
+          {playedMatches.map((match) => (
+            <Link key={match.id} href={`/matches/${match.id}`} className="match-result-card">
+              <span className={match.status === "FT" ? "status-strip win" : "status-strip"}>{match.status}</span>
+              <TeamBlock name="FC LH" logo="/images/logo.jpg" compact />
+              <div className="match-card-core">
+                <span>{match.competition}</span>
+                <strong>{match.score}</strong>
+                <p>{match.date} · {match.venue}</p>
+              </div>
+              <TeamBlock name={match.opponent} compact />
+            </Link>
+          ))}
+        </div>
+      </section>
+    </section>
+  );
+
   return (
     <section className="section match-center">
       {matches.map((match) => (
@@ -436,6 +496,57 @@ function Matches({ matches }) {
       ))}
     </section>
   );
+}
+
+function MatchCountdown({ match }) {
+  const [now, setNow] = useState(null);
+
+  useEffect(() => {
+    setNow(Date.now());
+    const timer = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const target = new Date(`${match.date}T20:30:00+07:00`).getTime();
+  const diff = now ? Math.max(target - now, 0) : 0;
+  const units = [
+    ["Days", Math.floor(diff / 86400000)],
+    ["Hrs", Math.floor((diff % 86400000) / 3600000)],
+    ["Min", Math.floor((diff % 3600000) / 60000)],
+    ["Sec", Math.floor((diff % 60000) / 1000)],
+  ];
+
+  return (
+    <div className="countdown-row" aria-label="Thời gian tới trận tiếp theo">
+      {units.map(([label, value]) => (
+        <div key={label}>
+          <strong>{now ? String(value).padStart(2, "0") : "--"}</strong>
+          <span>{label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TeamBlock({ name, logo, compact = false }) {
+  return (
+    <div className={`team-block ${compact ? "compact" : ""}`}>
+      <span className="team-logo">
+        {logo ? <img src={logo} alt={`${name} logo`} /> : <i>{getTeamInitials(name)}</i>}
+      </span>
+      <strong>{name}</strong>
+    </div>
+  );
+}
+
+function getTeamInitials(name) {
+  return String(name || "?")
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 3)
+    .toUpperCase();
 }
 
 function MatchDetail({ match }) {
